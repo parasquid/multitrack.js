@@ -12,27 +12,30 @@ class MultiTrack {
   // });
   constructor(modules = {}) {
     this.modules = [];
+    this.moduleDefinitions = {
+      mixpanel: MixpanelModule,
+      appboy: AppboyModule
+    }
+
     for (let key in modules) {
-      switch (key) {
-        case "mixpanel":
-          this.modules.push(new MixpanelModule(modules[key]))
-          break;
-
-        case "appboy":
-          this.modules.push(new AppboyModule(modules[key]))
-          break;
-
-        default:
-          console.log("unimplemented module or unknown key: " + key)
+      if (key in this.moduleDefinitions) {
+        this.modules.push({
+          name: key,
+          object: (new this.moduleDefinitions[key](modules[key])),
+        });
+      } else {
+        console.log("unimplemented module or unknown key: " + key);
       }
     }
   }
 
   // e.g.
-  // tracker.trackEvent("Homepage Click", {})
+  // tracker.trackEvent("Homepage Click", { time: (new Date()) })
   trackEvent(action, properties = {}, excludedModules = []) {
     this.modules.forEach(module => {
-      module.trackEvent(action, properties)
+      if(!(excludedModules.includes(module.name))) {
+        (module.object).trackEvent(action, properties)
+      }
     })
   }
 }
