@@ -2,6 +2,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  target: 'web',
   entry: {
     app: './src/index.js',
   },
@@ -10,6 +11,7 @@ module.exports = {
   ], output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    library: 'multitrack'
+    library: 'MultiTrack',
+    libraryTarget: 'var'
   },
 };
