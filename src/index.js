@@ -54,6 +54,23 @@ class MultiTrack {
         (module.object).identify(userId)
       }
     })
-  }}
+  }
+
+  // e.g.
+  // tracker.setSuperProperties({
+  //   email: "tristan.gomez@gmail.com",
+  //   platform: "web"
+  // })
+  setSuperProperties(params = { excluded: [] }) {
+    let excludedModules = params["excluded"] || [];
+    delete params["excluded"];
+
+    this.modules.forEach(module => {
+      if (!(excludedModules.includes(module.name))) {
+        (module.object).setSuperProperties(params)
+      }
+    })
+  }
+}
 
 export default MultiTrack

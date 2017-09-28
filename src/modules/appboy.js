@@ -10,6 +10,12 @@ class AppboyModule {
   identify(userId) {
     this.analyticsObject.changeUser(userId);
   }
+
+  setSuperProperties(properties) {
+    for (const [key, value] of Object.entries(properties)) {
+      this.analyticsObject.getUser().setCustomUserAttribute(key, value);
+    }
+  }
 }
 
 export default AppboyModule

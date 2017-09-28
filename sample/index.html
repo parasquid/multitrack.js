@@ -78,6 +78,10 @@
         mixpanel: mixpanel
       });
 
+      t.setSuperProperties({
+        email: "test@example.com",
+        platform: "web"
+      })
       t.trackEvent("Demo Page Loaded", { date: (new Date().toISOString()) })
       t.identify("multitrack test user")
     }

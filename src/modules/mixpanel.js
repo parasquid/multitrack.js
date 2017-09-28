@@ -14,6 +14,10 @@ class MixpanelModule {
   identify(userId) {
     this.analyticsObject.identify(userId);
   }
+
+  setSuperProperties(properties) {
+    this.analyticsObject.register(properties)
+  }
 }
 
 export default MixpanelModule
