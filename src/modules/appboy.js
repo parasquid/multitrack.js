@@ -5,7 +5,10 @@ class AppboyModule {
 
   trackEvent(action, properties) {
     this.analyticsObject.logCustomEvent(action, properties);
-    console.log("appboy tracked!");
+  }
+
+  identify(userId) {
+    this.analyticsObject.changeUser(userId);
   }
 }
 

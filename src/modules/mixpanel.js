@@ -9,7 +9,10 @@ class MixpanelModule {
     // https://github.com/mixpanel/mixpanel-js/blob/master/src/mixpanel-core.js#L1066
     const mixpanelProperties = Object.assign({}, properties)
     this.analyticsObject.track(action, mixpanelProperties);
-    console.log("mixpanel tracked!");
+  }
+
+  identify(userId) {
+    this.analyticsObject.identify(userId);
   }
 }
 

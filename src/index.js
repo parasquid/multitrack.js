@@ -30,9 +30,9 @@ class MultiTrack {
   }
 
   // e.g.
-  // tracker.trackEvent("Homepage Click", { time: (new Date()), excluded: ["appboy"] })
+  // tracker.trackEvent("Homepage Click", { date: (new Date().toISOString()), excluded: ["appboy"] })
   trackEvent(action, params = { excluded: [] }) {
-    let excludedModules = params["excluded"];
+    let excludedModules = params["excluded"] || [];
     delete params["excluded"];
 
     this.modules.forEach(module => {
@@ -41,6 +41,19 @@ class MultiTrack {
       }
     })
   }
-}
+
+
+  // e.g.
+  // tracker.identify("auth0|12345")
+  identify(userId, params = { excluded: [] }) {
+    let excludedModules = params["excluded"] || [];
+    delete params["excluded"];
+
+    this.modules.forEach(module => {
+      if (!(excludedModules.includes(module.name))) {
+        (module.object).identify(userId)
+      }
+    })
+  }}
 
 export default MultiTrack

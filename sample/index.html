@@ -77,8 +77,11 @@
         appboy: appboy,
         mixpanel: mixpanel
       });
-      t.trackEvent("Demo Page Loaded")
+
+      t.trackEvent("Demo Page Loaded", { date: (new Date().toISOString()) })
+      t.identify("multitrack test user")
     }
+
 </script>
 
 </html>
