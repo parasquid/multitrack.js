@@ -30,11 +30,14 @@ class MultiTrack {
   }
 
   // e.g.
-  // tracker.trackEvent("Homepage Click", { time: (new Date()) })
-  trackEvent(action, properties = {}, excludedModules = []) {
+  // tracker.trackEvent("Homepage Click", { time: (new Date()), excluded: ["appboy"] })
+  trackEvent(action, params = { excluded: [] }) {
+    let excludedModules = params["excluded"];
+    delete params["excluded"];
+
     this.modules.forEach(module => {
-      if(!(excludedModules.includes(module.name))) {
-        (module.object).trackEvent(action, properties)
+      if (!(excludedModules.includes(module.name))) {
+        (module.object).trackEvent(action, params)
       }
     })
   }
