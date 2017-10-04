@@ -13,7 +13,20 @@ class AppboyModule {
 
   setSuperProperties(properties) {
     for (const [key, value] of Object.entries(properties)) {
-      this.analyticsObject.getUser().setCustomUserAttribute(key, value);
+      let methodLut = {
+        email(userObject, email) {
+          userObject.setEmail(email);
+        },
+        firstName(userObject, firstName) {
+          userObject.setFirstName(firstName);
+        }
+      }
+
+      if (key in methodLut) {
+        methodLut[key](this.analyticsObject.getUser(), value);
+      } else {
+        this.analyticsObject.getUser().setCustomUserAttribute(key, value);
+      }
     }
   }
 }
